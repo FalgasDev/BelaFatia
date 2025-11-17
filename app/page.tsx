@@ -1,29 +1,18 @@
+import Header from "./components/Header";
+import Footer from "./components/Footer";
+import { FiShoppingCart } from "react-icons/fi";
+
 export default function Home() {
   return (
-    <div className="font-sans text-gray-800">
-      <header className="w-full bg-red-600 text-white p-4 flex justify-between items-center">
-        <div className="flex items-center gap-6 text-sm uppercase">
-          <img src="/logo.png" alt="Logo" className="w-20 h-15" />
-          <a href="#" className="text-2xl">Bela Fatia</a>
-        </div>
-        <nav className="flex gap-6 text-sm uppercase">
-          <a href="#" className="hover:opacity-80">
-            Loja Online
-          </a>
-          <a href="#" className="hover:opacity-80">
-            Nossa Loja
-          </a>
-          <a href="#" className="hover:opacity-80">
-            Valores
-          </a>
-          <a href="#" className="hover:opacity-80">
-            Contato
-          </a>
-        </nav>
-      </header>
+    <div className="font-sans text-gray-800 bg-gray-100">
+      <Header />
 
       <section className="relative w-full h-[480px] overflow-hidden">
-        <img src="/bolo_home.png" alt="Bolo" className="w-500 h-250 object-cover" />
+        <img
+          src="/bolo_home.png"
+          alt="Bolo"
+          className="w-500 h-250 object-cover"
+        />
         <button className="absolute bottom-10 left-1/2 -translate-x-1/2 bg-red-600 text-white px-8 py-3 rounded-full shadow-lg hover:bg-red-700 transition cursor-pointer">
           Compre Já
         </button>
@@ -51,10 +40,25 @@ export default function Home() {
               image: "/bolo_red.png",
             },
           ].map((item, i) => (
-            <div key={i} className="text-center">
-              <img src={item.image} alt="Bolo" className="w-full rounded-lg shadow-md" />
-              <p className="mt-2 font-semibold text-sm">{item.name}</p>
-              <p className="text-gray-600 text-sm">{item.price}</p>
+            <div
+              key={i}
+              className="relative p-2 rounded-lg transition bg-white"
+            >
+              <div className="w-full h-52 bg-gray-200 rounded-lg overflow-hidden mb-2">
+                <img
+                  src={item.image}
+                  alt={item.name}
+                  className="object-cover w-full h-full"
+                />
+              </div>
+
+              <p className="text-sm font-semibold mt-5">{item.name}</p>
+              <p className="text-sm text-gray-600 mb-5">{item.price}</p>
+
+              {/* Botão de carrinho */}
+              <button className="absolute bottom-7 right-3 bg-red-600 hover:bg-red-700 text-white p-2 rounded-full hover:shadow-md transition cursor-pointer">
+                <FiShoppingCart size={18} />
+              </button>
             </div>
           ))}
         </div>
@@ -67,7 +71,8 @@ export default function Home() {
         <p className="text-center text-gray-700 mb-10">
           Que tal saborear um pedaço de felicidade? Na nossa loja online, você
           encontra bolos fresquinhos, preparados com ingredientes selecionados e
-          muito carinho. São sabores irresistíveis para qualquer momento do seu dia!
+          muito carinho. São sabores irresistíveis para qualquer momento do seu
+          dia!
         </p>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="bg-red-600 p-6 text-white rounded-xl shadow-lg">
@@ -78,7 +83,11 @@ export default function Home() {
               mais gostosos.
             </p>
           </div>
-          <img src="/bolo_experimente.png" alt="Bolo" className="rounded-xl shadow-md w-full object-cover" />
+          <img
+            src="/bolo_experimente.png"
+            alt="Bolo"
+            className="rounded-xl shadow-md w-full object-cover"
+          />
         </div>
       </section>
 
@@ -98,15 +107,7 @@ export default function Home() {
         </div>
       </section>
 
-      <footer className="bg-red-600 text-white p-12 flex justify-around items-center">
-        <div className="space-y-4 text-sm">
-          <p className="flex items-center gap-2">📞 (11) 94733-9002</p>
-          <p className="flex items-center gap-2">📸 bela_fatia</p>
-          <p className="flex items-center gap-2">💬 (11) 98972-0060</p>
-          <p className="flex items-center gap-2">📍 Rua Alvaro Cardoso, 642</p>
-        </div>
-        <img src="/logo.png" alt="Logo" className="w-40"/>
-      </footer>
+      <Footer />
     </div>
   );
 }
