@@ -1,135 +1,221 @@
 "use client";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
-import { FiShoppingCart } from "react-icons/fi";
+import { FiShoppingCart, FiTrash2, FiEdit2, FiPlus } from "react-icons/fi";
 import { useCart } from "../context/CartContext";
+import { useState, useEffect } from "react";
 
-const cakes = [
-  {
-    id: 1,
-    name: "Bolo de Cinnamon Roll",
-    price: "115.00",
-    img: "/bolo_cinnamon.png"
-  },
-  {
-    id: 2,
-    name: "Bolo de Nozes",
-    price: "119.00",
-    img: "/bolo_nozes.png"
-  },
-  {
-    id: 3,
-    name: "Bolo Red Velvet",
-    price: "109.00",
-    img: "/bolo_red.png"
-  },
-
-  {
-    id: 4,
-    name: "Bolo de Chocolate",
-    price: "112.00",
-    img: "/bolo_chocolate.png"
-  },
-  {
-    id: 5,
-    name: "Bolo de Chocolate com Maracujá",
-    price: "115.00",
-    img: "/bolo_maracuja.png"
-  },
-  {
-    id: 6,
-    name: "Bolo de Coco Cremoso",
-    price: "115.00",
-    img: "/bolo_coco.png"
-  },
-
-  {
-    id: 7,
-    name: "Bolo de Kinder",
-    price: "129.00",
-    img: "/bolo_kinder.png"
-  },
-  {
-    id: 8,
-    name: "Bolo Floresta Negra",
-    price: "117.90",
-    img: "/bolo_floresta.png"
-  },
-  {
-    id: 9,
-    name: "Bolo de Churros",
-    price: "117.90",
-    img: "/bolo_churros.png"
-  },
-
-  {
-    id: 10,
-    name: "Bolo de Ninho com Morango",
-    price: "129.90",
-    img: "/bolo_ninho.png"
-  },
-  {
-    id: 11,
-    name: "Bolo de Ninho com Nutella",
-    price: "117.90",
-    img: "/bolo_nutella.png"
-  },
-  {
-    id: 12,
-    name: "Bolo de Chocolate com Morango",
-    price: "117.90",
-    img: "/bolo_morango.png"
-  },
-];
+const API_URL = "http://localhost:5001";
 
 export default function BolosPage() {
   const { addToCart } = useCart();
+
+  const [cakes, setCakes] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [editingCake, setEditingCake] = useState(null);
+  const [isCreating, setIsCreating] = useState(false);
+
+  async function loadCakes() {
+    try {
+      const res = await fetch(`${API_URL}/cakes`);
+      const data = await res.json();
+      setCakes(data);
+      setLoading(false);
+    } catch (err) {
+      console.error("Erro ao carregar bolos:", err);
+    }
+  }
+
+  useEffect(() => {
+    loadCakes();
+  }, []);
+
+  async function handleDelete(id) {
+    try {
+      await fetch(`${API_URL}/cakes/${id}`, { method: "DELETE" });
+      loadCakes()
+    } catch (err) {
+      console.error("Erro ao excluir bolo:", err);
+    }
+  }
+
+  function startCreate() {
+    setIsCreating(true);
+    setEditingCake({
+      name: "",
+      price: "",
+      img: "",
+    });
+  }
+
+  async function handleSaveEdit() {
+    try {
+      if (isCreating) {
+        // Criar bolo (POST)
+        await fetch(`${API_URL}/cakes`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(editingCake),
+        });
+
+        loadCakes()
+      } else {
+        // Editar bolo existente (PUT)
+        await fetch(`${API_URL}/cakes/${editingCake.id}`, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(editingCake),
+        });
+
+        loadCakes()
+      }
+
+      setEditingCake(null);
+      setIsCreating(false);
+    } catch (err) {
+      console.error("Erro ao salvar bolo:", err);
+    }
+  }
+
+  function startEdit(cake) {
+    setIsCreating(false);
+    setEditingCake(cake);
+  }
 
   return (
     <>
       <Header />
 
       <main className="bg-gray-100 min-h-screen pb-20 pt-10">
-        <h1 className="text-center text-2xl font-bold mb-10">BOLOS</h1>
+        <div className="max-w-6xl mx-auto flex justify-between items-center px-6 mb-10">
+          <h1 className="text-2xl font-bold">BOLOS</h1>
 
-        <div className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10 px-6">
-          {cakes.map((cake, index) => (
-            <div
-              key={index}
-              className="relative p-2 rounded-lg transition bg-white"
-            >
-              <div className="w-full h-52 bg-gray-200 rounded-lg overflow-hidden mb-2">
-                <img
-                  src={cake.img}
-                  alt={cake.name}
-                  className="object-cover w-full h-full"
-                />
-              </div>
-
-              <p className="text-sm font-semibold mt-5">{cake.name}</p>
-              <p className="text-sm text-gray-600 mb-5">R$ {cake.price.replace(".", ",")}</p>
-
-              <button
-                className="absolute bottom-7 right-3 bg-red-700 hover:bg-red-800 text-white p-2 rounded-full hover:shadow-md transition cursor-pointer"
-                onClick={() =>
-                  addToCart({
-                    id: cake.id ?? cake.name,
-                    name: cake.name,
-                    img: cake.img,
-                    priceDisplay: cake.price,
-                    priceNumeric: Number(cake.price),
-                    quantity: 1,
-                  })
-                }
-              >
-                <FiShoppingCart size={18} />
-              </button>
-            </div>
-          ))}
+          <button
+            onClick={startCreate}
+            className="flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg shadow-md cursor-pointer"
+          >
+            <FiPlus size={18} />
+            Adicionar Bolo
+          </button>
         </div>
+
+        {loading ? (
+          <p className="text-center text-gray-500">Carregando bolos...</p>
+        ) : (
+          <div className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10 px-6">
+            {cakes.map((cake) => (
+              <div
+                key={cake.id}
+                className="relative p-2 rounded-lg bg-white shadow-sm"
+              >
+                <div className="absolute top-3 right-3 flex gap-3">
+                  <button
+                    onClick={() => startEdit(cake)}
+                    className="p-2 bg-blue-500 text-white rounded-full hover:bg-blue-600 cursor-pointer"
+                  >
+                    <FiEdit2 size={16} />
+                  </button>
+
+                  <button
+                    onClick={() => handleDelete(cake.id)}
+                    className="p-2 bg-red-600 text-white rounded-full hover:bg-red-700 cursor-pointer"
+                  >
+                    <FiTrash2 size={16} />
+                  </button>
+                </div>
+
+                <div className="w-full h-52 rounded-lg overflow-hidden bg-gray-200 mb-2">
+                  <img src={cake.img} alt={cake.name} className="w-full h-full object-cover" />
+                </div>
+
+                <p className="text-sm font-semibold mt-5">{cake.name}</p>
+                <p className="text-sm text-gray-600 mb-5">
+                  R$ {Number(cake.price).toFixed(2).replace(".", ",")}
+                </p>
+
+                <button
+                  className="absolute bottom-7 right-3 bg-red-700 hover:bg-red-800 text-white p-2 rounded-full cursor-pointer"
+                  onClick={() =>
+                    addToCart({
+                      id: cake.id,
+                      name: cake.name,
+                      img: cake.img,
+                      priceDisplay: cake.price,
+                      priceNumeric: Number(cake.price),
+                      quantity: 1,
+                    })
+                  }
+                >
+                  <FiShoppingCart size={18} />
+                </button>
+              </div>
+            ))}
+          </div>
+        )}
       </main>
 
       <Footer />
+
+      {editingCake && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-[999]">
+          <div className="bg-white w-96 p-6 rounded-xl shadow-xl">
+            <h2 className="text-xl font-semibold mb-4">
+              {isCreating ? "Adicionar Novo Bolo" : "Editar Bolo"}
+            </h2>
+
+            <label className="block text-sm font-medium mt-2">Nome:</label>
+            <input
+              type="text"
+              value={editingCake.name}
+              onChange={(e) =>
+                setEditingCake({ ...editingCake, name: e.target.value })
+              }
+              className="w-full border p-2 rounded mt-1 outline-0"
+            />
+
+            <label className="block text-sm font-medium mt-3">Preço:</label>
+            <input
+              type="text"
+              value={editingCake.price}
+              onChange={(e) =>
+                setEditingCake({ ...editingCake, price: e.target.value })
+              }
+              className="w-full border p-2 rounded mt-1 outline-0"
+            />
+
+            <label className="block text-sm font-medium mt-3">
+              Imagem (URL):
+            </label>
+            <input
+              type="text"
+              value={editingCake.img}
+              onChange={(e) =>
+                setEditingCake({ ...editingCake, img: e.target.value })
+              }
+              className="w-full border p-2 rounded mt-1 outline-0"
+            />
+
+            <div className="flex justify-end gap-3 mt-6">
+              <button
+                className="px-4 py-2 bg-gray-300 rounded-lg hover:bg-gray-400 cursor-pointer"
+                onClick={() => {
+                  setEditingCake(null);
+                  setIsCreating(false);
+                }}
+              >
+                Cancelar
+              </button>
+
+              <button
+                className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 cursor-pointer"
+                onClick={handleSaveEdit}
+              >
+                Concluir
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 }

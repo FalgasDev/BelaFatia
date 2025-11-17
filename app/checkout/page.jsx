@@ -16,13 +16,7 @@ export default function CheckoutPage() {
     endereco: "",
     pagamento: "cartao",
   });
-
-  const formatCurrency = (value) =>
-    new Intl.NumberFormat("pt-BR", {
-      style: "currency",
-      currency: "BRL",
-    }).format(value / 100);
-
+  
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -166,7 +160,7 @@ export default function CheckoutPage() {
 
                 <div className="flex justify-between mt-4 text-lg font-semibold">
                   <span>Total:</span>
-                  <span>{formatCurrency(subtotal)}</span>
+                  <span>R$ {subtotal.toFixed(2).replace(".", ",")}</span>
                 </div>
               </div>
             )}

@@ -17,12 +17,6 @@ export default function CartDrawer({ open, onClose }) {
     return () => (document.body.style.overflow = "");
   }, [open]);
 
-  const formatCurrency = (value) =>
-    new Intl.NumberFormat("pt-BR", {
-      style: "currency",
-      currency: "BRL",
-    }).format(value / 100);
-
   return (
     <div
       className={`fixed inset-0 z-50 ${
@@ -124,7 +118,7 @@ export default function CartDrawer({ open, onClose }) {
             <div className="flex justify-between items-center mb-4">
               <span className="text-sm font-medium text-black">Subtotal:</span>
               <span className="text-sm font-bold text-black">
-                {formatCurrency(subtotal)}
+                R$ {subtotal.toFixed(2).replace(".", ",")}
               </span>
             </div>
 
