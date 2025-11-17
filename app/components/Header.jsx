@@ -1,5 +1,6 @@
 import Link from "next/link";
 import CartButton from "./CartButton";
+import UserMenu from "./UserMenu"
 
 export default function Header() {
   return (
@@ -14,12 +15,8 @@ export default function Header() {
         <Link href="/online-shop" className="hover:opacity-80 hover:border-b-2">
           Loja Online
         </Link>
-        <Link href="#" className="hover:opacity-80 hover:border-b-2">
-          Avaliações
-        </Link>
-        <Link href="#" className="hover:opacity-80 hover:border-b-2">
-          Contato
-        </Link>
+
+        <UserMenu />
 
         <CartButton />
       </nav>
