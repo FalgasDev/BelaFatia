@@ -36,7 +36,6 @@ export default function UserMenu() {
 
   return (
     <div className="relative">
-      {/* ÍCONE DO USUÁRIO */}
       <button
         onClick={handleClick}
         className="text-2xl hover:opacity-70 transition cursor-pointer"
@@ -44,11 +43,10 @@ export default function UserMenu() {
         <FiUser size={23}/>
       </button>
 
-      {/* MENU FLUTUANTE */}
       {open && isLogged && (
         <div className="absolute -right-17.5 mt-3 bg-gray-200 p-4 rounded-lg shadow-xl w-40 animate-fade z-10">
           <div className="text-center mb-3 text-gray-800 font-medium">
-            Olá {userName}!
+            Olá, {userName}!
           </div>
 
           <button
@@ -58,7 +56,6 @@ export default function UserMenu() {
             Logout
           </button>
 
-          {/* Triângulo apontando para o ícone */}
           <div className="absolute -top-1 right-18.5 w-3 h-3 bg-gray-200 rotate-45"></div>
         </div>
       )}
