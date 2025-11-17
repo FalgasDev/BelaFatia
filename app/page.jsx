@@ -18,8 +18,8 @@ export default function Home() {
           alt="Bolo"
           className="w-500 h-250 object-cover"
         />
-        <Link href={"/loja-online"}>
-          <button className="absolute bottom-10 left-1/2 -translate-x-1/2 bg-red-600 text-white px-8 py-3 rounded-full shadow-lg hover:bg-red-700 transition cursor-pointer">
+        <Link href={"/online-shop"}>
+          <button className="absolute bottom-10 left-1/2 -translate-x-1/2 bg-red-700 text-white px-8 py-3 rounded-full shadow-lg hover:bg-red-800 transition cursor-pointer">
             Compre Já
           </button>
         </Link>
@@ -70,7 +70,7 @@ export default function Home() {
 
               {/* Botão de carrinho */}
               <button
-                className="absolute bottom-7 right-3 bg-red-600 hover:bg-red-700 text-white p-2 rounded-full hover:shadow-md transition cursor-pointer"
+                className="absolute bottom-7 right-3 bg-red-700 hover:bg-red-800 text-white p-2 rounded-full hover:shadow-md transition cursor-pointer"
                 onClick={() =>
                   addToCart({
                     id: cake.id,
@@ -100,7 +100,7 @@ export default function Home() {
           dia!
         </p>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="bg-red-600 p-6 text-white rounded-xl shadow-lg">
+          <div className="bg-red-700 p-6 text-white rounded-xl shadow-lg">
             <h3 className="font-bold text-lg mb-2">Experimente nossos bolos</h3>
             <p className="text-sm">
               Que tal um bolo delicioso para acompanhar seu café? Sabor

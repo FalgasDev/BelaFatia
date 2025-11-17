@@ -122,7 +122,7 @@ export default function BolosPage() {
               <p className="text-sm text-gray-600 mb-5">{cake.priceDisplay}</p>
 
               <button
-                className="absolute bottom-7 right-3 bg-red-600 hover:bg-red-700 text-white p-2 rounded-full hover:shadow-md transition cursor-pointer"
+                className="absolute bottom-7 right-3 bg-red-700 hover:bg-red-800 text-white p-2 rounded-full hover:shadow-md transition cursor-pointer"
                 onClick={() =>
                   addToCart({
                     id: cake.id ?? cake.name,

@@ -73,7 +73,7 @@ export default function CartDrawer({ open, onClose }) {
                       <p className="text-sm font-semibold">{it.name}</p>
                       <button
                         onClick={() => removeFromCart(it.id ?? it.name)}
-                        className="text-gray-400 hover:text-gray-600 p-1"
+                        className="text-gray-400 hover:text-gray-600 p-1 cursor-pointer"
                         aria-label="Remover item"
                       >
                         <FiTrash2 />
@@ -130,7 +130,7 @@ export default function CartDrawer({ open, onClose }) {
 
             <div className="space-y-3">
               <button
-                className="w-full py-3 bg-red-800 text-white rounded-md font-semibold"
+                className="w-full py-3 bg-red-800 text-white rounded-md font-semibold cursor-pointer"
                 onClick={() => {
                   window.location.href = "/checkout";
                 }}
@@ -140,7 +140,7 @@ export default function CartDrawer({ open, onClose }) {
 
               <button
                 onClick={clearCart}
-                className="w-full py-2 border text-sm text-gray-600 rounded-md"
+                className="w-full py-2 border text-sm text-gray-600 rounded-md cursor-pointer"
               >
                 Limpar carrinho
               </button>

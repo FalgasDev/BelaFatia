@@ -1,6 +1,6 @@
 export default function Footer() {
   return (
-    <footer className="bg-red-600 text-white p-12 flex justify-around items-center">
+    <footer className="bg-red-700 text-white p-12 flex justify-around items-center">
       <div className="space-y-4 text-sm">
         <p className="flex items-center gap-2">📞 (11) 94733-9002</p>
         <p className="flex items-center gap-2">📸 bela_fatia</p>

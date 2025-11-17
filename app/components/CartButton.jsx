@@ -21,7 +21,7 @@ export default function CartButton() {
         <FiShoppingCart size={20} />
         <span className="hidden md:inline">Carrinho</span>
         {count > 0 && (
-          <span className="absolute -top-2 -right-2 bg-white text-red-600 text-xs rounded-full w-5 h-5 flex items-center justify-center">
+          <span className="absolute -top-2 -right-2 bg-white text-red-700 text-xs rounded-full w-5 h-5 flex items-center justify-center">
             {count}
           </span>
         )}
