@@ -92,8 +92,7 @@ compartilhamento entre componentes como:
 ### 📥 1. Clone o repositório
 
 ``` bash
-git clone <seu-repositorio>
-cd confeitaria
+git clone https://github.com/FalgasDev/BelaFatia.git
 ```
 
 ### 📦 2. Instale as dependências
