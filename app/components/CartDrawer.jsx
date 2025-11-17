@@ -83,7 +83,7 @@ export default function CartDrawer({ open, onClose }) {
                     <p className="text-xs text-gray-600 mt-1">
                       {it.quantity} ×{" "}
                       <strong className="text-gray-800">
-                        {formatCurrency(it.priceNumeric ?? it.price)}
+                        R$ {it.priceNumeric.toFixed(2).replace(".", ",")}
                       </strong>
                     </p>
 
@@ -122,8 +122,8 @@ export default function CartDrawer({ open, onClose }) {
 
           <div className="p-6 border-t bg-white">
             <div className="flex justify-between items-center mb-4">
-              <span className="text-sm font-medium">Subtotal:</span>
-              <span className="text-sm font-bold">
+              <span className="text-sm font-medium text-black">Subtotal:</span>
+              <span className="text-sm font-bold text-black">
                 {formatCurrency(subtotal)}
               </span>
             </div>

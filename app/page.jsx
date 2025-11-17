@@ -34,23 +34,20 @@ export default function Home() {
             {
               id: 1,
               name: "Bolo de Cinnamon Roll",
-              priceDisplay: "R$ 115,00",
-              img: "/bolo_cinnamon.png",
-              priceNumeric: 11500,
+              price: "115.00",
+              img: "/bolo_cinnamon.png"
             },
             {
               id: 2,
               name: "Bolo de Nozes",
-              priceDisplay: "R$ 119,00",
-              img: "/bolo_nozes.png",
-              priceNumeric: 11900,
+              price: "119.00",
+              img: "/bolo_nozes.png"
             },
             {
               id: 3,
               name: "Bolo Red Velvet",
-              priceDisplay: "R$ 109,00",
-              img: "/bolo_red.png",
-              priceNumeric: 10900,
+              price: "109.00",
+              img: "/bolo_red.png"
             },
           ].map((cake, index) => (
             <div
@@ -66,7 +63,7 @@ export default function Home() {
               </div>
 
               <p className="text-sm font-semibold mt-5">{cake.name}</p>
-              <p className="text-sm text-gray-600 mb-5">{cake.priceDisplay}</p>
+              <p className="text-sm text-gray-600 mb-5">R$ {cake.price.replace(".", ",")}</p>
 
               {/* Botão de carrinho */}
               <button
@@ -76,8 +73,8 @@ export default function Home() {
                     id: cake.id,
                     name: cake.name,
                     img: cake.img,
-                    price: cake.priceDisplay,
-                    priceNumeric: cake.priceNumeric,
+                    price: cake.price,
+                    priceNumeric: Number(cake.price),
                     quantity: 1,
                   })
                 }

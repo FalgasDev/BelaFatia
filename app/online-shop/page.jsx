@@ -8,89 +8,77 @@ const cakes = [
   {
     id: 1,
     name: "Bolo de Cinnamon Roll",
-    priceDisplay: "R$ 115,00",
-    img: "/bolo_cinnamon.png",
-    priceNumeric: 11500,
+    price: "115.00",
+    img: "/bolo_cinnamon.png"
   },
   {
     id: 2,
     name: "Bolo de Nozes",
-    priceDisplay: "R$ 119,00",
-    img: "/bolo_nozes.png",
-    priceNumeric: 11900,
+    price: "119.00",
+    img: "/bolo_nozes.png"
   },
   {
     id: 3,
     name: "Bolo Red Velvet",
-    priceDisplay: "R$ 109,00",
-    img: "/bolo_red.png",
-    priceNumeric: 10900,
+    price: "109.00",
+    img: "/bolo_red.png"
   },
 
   {
     id: 4,
     name: "Bolo de Chocolate",
-    priceDisplay: "R$ 112,00",
-    img: "/bolo_chocolate.png",
-    priceNumeric: 11200,
+    price: "112.00",
+    img: "/bolo_chocolate.png"
   },
   {
     id: 5,
     name: "Bolo de Chocolate com Maracujá",
-    priceDisplay: "R$ 115,00",
-    img: "/bolo_maracuja.png",
-    priceNumeric: 11500,
+    price: "115.00",
+    img: "/bolo_maracuja.png"
   },
   {
     id: 6,
     name: "Bolo de Coco Cremoso",
-    priceDisplay: "R$ 115,00",
-    img: "/bolo_coco.png",
-    priceNumeric: 11500,
+    price: "115.00",
+    img: "/bolo_coco.png"
   },
 
   {
     id: 7,
     name: "Bolo de Kinder",
-    priceDisplay: "R$ 129,00",
-    img: "/bolo_kinder.png",
-    priceNumeric: 12900,
+    price: "129.00",
+    img: "/bolo_kinder.png"
   },
   {
     id: 8,
     name: "Bolo Floresta Negra",
-    priceDisplay: "R$ 117,90",
-    img: "/bolo_floresta.png",
-    priceNumeric: 11790,
+    price: "117.90",
+    img: "/bolo_floresta.png"
   },
   {
     id: 9,
     name: "Bolo de Churros",
-    priceDisplay: "R$ 117,90",
-    img: "/bolo_churros.png",
-    priceNumeric: 11790,
+    price: "117.90",
+    img: "/bolo_churros.png"
   },
 
   {
     id: 10,
     name: "Bolo de Ninho com Morango",
-    priceDisplay: "R$ 129,90",
-    img: "/bolo_ninho.png",
-    priceNumeric: 12990,
+    price: "129.90",
+    img: "/bolo_ninho.png"
   },
   {
     id: 11,
     name: "Bolo de Ninho com Nutella",
-    priceDisplay: "R$ 117,90",
-    img: "/bolo_nutella.png",
-    priceNumeric: 11790,
+    price: "117.90",
+    img: "/bolo_nutella.png"
   },
   {
     id: 12,
     name: "Bolo de Chocolate com Morango",
-    priceDisplay: "R$ 117,90",
-    img: "/bolo_morango.png",
-    priceNumeric: 11790,
+    price: "117.90",
+    img: "/bolo_morango.png"
   },
 ];
 
@@ -119,7 +107,7 @@ export default function BolosPage() {
               </div>
 
               <p className="text-sm font-semibold mt-5">{cake.name}</p>
-              <p className="text-sm text-gray-600 mb-5">{cake.priceDisplay}</p>
+              <p className="text-sm text-gray-600 mb-5">R$ {cake.price.replace(".", ",")}</p>
 
               <button
                 className="absolute bottom-7 right-3 bg-red-700 hover:bg-red-800 text-white p-2 rounded-full hover:shadow-md transition cursor-pointer"
@@ -128,8 +116,8 @@ export default function BolosPage() {
                     id: cake.id ?? cake.name,
                     name: cake.name,
                     img: cake.img,
-                    price: cake.priceDisplay,
-                    priceNumeric: cake.priceNumeric,
+                    priceDisplay: cake.price,
+                    priceNumeric: Number(cake.price),
                     quantity: 1,
                   })
                 }

@@ -154,14 +154,12 @@ export default function CheckoutPage() {
                       <p className="font-medium">{item.name}</p>
                       <p className="text-sm text-gray-600">
                         {item.quantity} ×{" "}
-                        {formatCurrency(item.priceNumeric ?? item.price)}
+                        R$ {item.priceNumeric.toFixed(2).replace(".", ",")}
                       </p>
                     </div>
 
                     <p className="font-semibold">
-                      {formatCurrency(
-                        (item.priceNumeric ?? item.price) * item.quantity
-                      )}
+                      R$ {item.priceNumeric.toFixed(2).replace(".", ",")}
                     </p>
                   </div>
                 ))}
