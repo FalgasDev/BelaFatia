@@ -4,6 +4,7 @@ import { useCart } from "../context/CartContext";
 import { useState } from "react";
 import { FiCheckCircle } from "react-icons/fi";
 import Header from "../components/Header";
+import Link from "next/link";
 
 export default function CheckoutPage() {
   const { items, subtotal, clearCart } = useCart();
@@ -16,7 +17,7 @@ export default function CheckoutPage() {
     endereco: "",
     pagamento: "cartao",
   });
-  
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -39,12 +40,13 @@ export default function CheckoutPage() {
               Obrigado pela sua compra, {form.nome}!
             </p>
 
-            <button
-              onClick={() => (window.location.href = "/")}
-              className="mt-6 px-6 py-3 bg-red-700 hover:bg-red-800 text-white rounded-lg font-semibold"
-            >
-              Voltar para a Loja
-            </button>
+            <Link href={"/online-shop"}>
+                <button
+                    className="mt-6 px-6 py-3 bg-red-700 hover:bg-red-800 text-white rounded-lg font-semibold"
+                >
+                Voltar para a Loja
+                </button>
+            </Link>
           </div>
         </div>
       )}
@@ -123,7 +125,7 @@ export default function CheckoutPage() {
 
               <button
                 type="submit"
-                className="w-full bg-red-700 hover:bg-red-800 text-white py-3 rounded-lg font-semibold mt-4"
+                className="w-full bg-red-700 hover:bg-red-800 text-white py-3 rounded-lg font-semibold mt-4 cursor-pointer"
               >
                 Finalizar Compra
               </button>

@@ -4,6 +4,7 @@ import Header from "../components/Header";
 import { FiShoppingCart, FiTrash2, FiEdit2, FiPlus } from "react-icons/fi";
 import { useCart } from "../context/CartContext";
 import { useState, useEffect } from "react";
+import axios from "axios";
 
 const API_URL = "http://localhost:5001";
 
@@ -17,10 +18,11 @@ export default function BolosPage() {
 
   async function loadCakes() {
     try {
-      const res = await fetch(`${API_URL}/cakes`);
-      const data = await res.json();
-      setCakes(data);
-      setLoading(false);
+      const res = await axios.get(`${API_URL}/cakes`);
+      if(res.data.length != 0) {
+        setLoading(false);
+      }
+      setCakes(res.data);
     } catch (err) {
       console.error("Erro ao carregar bolos:", err);
     }
@@ -32,8 +34,8 @@ export default function BolosPage() {
 
   async function handleDelete(id) {
     try {
-      await fetch(`${API_URL}/cakes/${id}`, { method: "DELETE" });
-      loadCakes()
+      await axios.delete(`${API_URL}/cakes/${id}`);
+      loadCakes();
     } catch (err) {
       console.error("Erro ao excluir bolo:", err);
     }
@@ -51,23 +53,11 @@ export default function BolosPage() {
   async function handleSaveEdit() {
     try {
       if (isCreating) {
-        // Criar bolo (POST)
-        await fetch(`${API_URL}/cakes`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(editingCake),
-        });
-
-        loadCakes()
+        await axios.post(`${API_URL}/cakes`, editingCake);
+        loadCakes();
       } else {
-        // Editar bolo existente (PUT)
-        await fetch(`${API_URL}/cakes/${editingCake.id}`, {
-          method: "PUT",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(editingCake),
-        });
-
-        loadCakes()
+        await axios.put(`${API_URL}/cakes/${editingCake.id}`, editingCake);
+        loadCakes();
       }
 
       setEditingCake(null);
@@ -125,7 +115,11 @@ export default function BolosPage() {
                 </div>
 
                 <div className="w-full h-52 rounded-lg overflow-hidden bg-gray-200 mb-2">
-                  <img src={cake.img} alt={cake.name} className="w-full h-full object-cover" />
+                  <img
+                    src={cake.img}
+                    alt={cake.name}
+                    className="w-full h-full object-cover"
+                  />
                 </div>
 
                 <p className="text-sm font-semibold mt-5">{cake.name}</p>

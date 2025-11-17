@@ -73,7 +73,7 @@ export default function CartDrawer({ open, onClose }) {
                         <FiTrash2 />
                       </button>
                     </div>
-
+                    <p className="text-gray-900">{it.name}</p>
                     <p className="text-xs text-gray-600 mt-1">
                       {it.quantity} ×{" "}
                       <strong className="text-gray-800">
