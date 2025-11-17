@@ -24,7 +24,7 @@ export default function BolosPage() {
       }
       setCakes(res.data);
     } catch (err) {
-      console.error("Erro ao carregar bolos:", err);
+      alert(err.response.data.Error);
     }
   }
 
@@ -37,7 +37,7 @@ export default function BolosPage() {
       await axios.delete(`${API_URL}/cakes/${id}`);
       loadCakes();
     } catch (err) {
-      console.error("Erro ao excluir bolo:", err);
+      alert(err.response.data.Error);
     }
   }
 
@@ -63,7 +63,7 @@ export default function BolosPage() {
       setEditingCake(null);
       setIsCreating(false);
     } catch (err) {
-      console.error("Erro ao salvar bolo:", err);
+      alert(err.response.data.Error);
     }
   }
 
