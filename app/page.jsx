@@ -1,8 +1,13 @@
+"use client"
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import { FiShoppingCart } from "react-icons/fi";
+import Link from "next/link";
+import { useCart } from "./context/CartContext";
 
 export default function Home() {
+  const { addToCart } = useCart();
+
   return (
     <div className="font-sans text-gray-800 bg-gray-100">
       <Header />
@@ -13,9 +18,11 @@ export default function Home() {
           alt="Bolo"
           className="w-500 h-250 object-cover"
         />
-        <button className="absolute bottom-10 left-1/2 -translate-x-1/2 bg-red-600 text-white px-8 py-3 rounded-full shadow-lg hover:bg-red-700 transition cursor-pointer">
-          Compre Já
-        </button>
+        <Link href={"/loja-online"}>
+          <button className="absolute bottom-10 left-1/2 -translate-x-1/2 bg-red-600 text-white px-8 py-3 rounded-full shadow-lg hover:bg-red-700 transition cursor-pointer">
+            Compre Já
+          </button>
+        </Link>
       </section>
 
       <section className="max-w-5xl mx-auto py-16 px-6">
@@ -25,38 +32,56 @@ export default function Home() {
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
           {[
             {
+              id: 1,
               name: "Bolo de Cinnamon Roll",
-              price: "R$ 115,00",
-              image: "/bolo_cinnamon.png",
+              priceDisplay: "R$ 115,00",
+              img: "/bolo_cinnamon.png",
+              priceNumeric: 11500,
             },
             {
+              id: 2,
               name: "Bolo de Nozes",
-              price: "R$ 119,00",
-              image: "/bolo_nozes.png",
+              priceDisplay: "R$ 119,00",
+              img: "/bolo_nozes.png",
+              priceNumeric: 11900,
             },
             {
+              id: 3,
               name: "Bolo Red Velvet",
-              price: "R$ 107,00",
-              image: "/bolo_red.png",
+              priceDisplay: "R$ 109,00",
+              img: "/bolo_red.png",
+              priceNumeric: 10900,
             },
-          ].map((item, i) => (
+          ].map((cake, index) => (
             <div
-              key={i}
+              key={index}
               className="relative p-2 rounded-lg transition bg-white"
             >
               <div className="w-full h-52 bg-gray-200 rounded-lg overflow-hidden mb-2">
                 <img
-                  src={item.image}
-                  alt={item.name}
+                  src={cake.img}
+                  alt={cake.name}
                   className="object-cover w-full h-full"
                 />
               </div>
 
-              <p className="text-sm font-semibold mt-5">{item.name}</p>
-              <p className="text-sm text-gray-600 mb-5">{item.price}</p>
+              <p className="text-sm font-semibold mt-5">{cake.name}</p>
+              <p className="text-sm text-gray-600 mb-5">{cake.priceDisplay}</p>
 
               {/* Botão de carrinho */}
-              <button className="absolute bottom-7 right-3 bg-red-600 hover:bg-red-700 text-white p-2 rounded-full hover:shadow-md transition cursor-pointer">
+              <button
+                className="absolute bottom-7 right-3 bg-red-600 hover:bg-red-700 text-white p-2 rounded-full hover:shadow-md transition cursor-pointer"
+                onClick={() =>
+                  addToCart({
+                    id: cake.id,
+                    name: cake.name,
+                    img: cake.img,
+                    price: cake.priceDisplay,
+                    priceNumeric: cake.priceNumeric,
+                    quantity: 1,
+                  })
+                }
+              >
                 <FiShoppingCart size={18} />
               </button>
             </div>

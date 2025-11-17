@@ -1,4 +1,5 @@
 import Link from "next/link";
+import CartButton from "./CartButton";
 
 export default function Header() {
   return (
@@ -9,7 +10,7 @@ export default function Header() {
           Bela Fatia
         </Link>
       </div>
-      <nav className="flex gap-6 text-sm uppercase">
+      <nav className="flex gap-6 text-sm uppercase items-center">
         <Link href="/loja-online" className="hover:opacity-80 hover:border-b-2">
           Loja Online
         </Link>
@@ -19,6 +20,8 @@ export default function Header() {
         <Link href="#" className="hover:opacity-80 hover:border-b-2">
           Contato
         </Link>
+
+        <CartButton />
       </nav>
     </header>
   );
